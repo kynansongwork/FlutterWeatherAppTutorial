@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherApiClient {
-
+// Data provider
 // Base URL and instantiating http client
   static const baseUrl = 'https://www.metaweather.com';
   final http.Client httpClient;
@@ -17,7 +17,7 @@ class WeatherApiClient {
 
 // http request and decoding of the response
 // Future completes if the asynchronous operation succeeds
-  Future<int>getLocationId(String city) async {
+  Future<int> getLocationId(String city) async {
     final locationUrl = '$baseUrl/api/location/search/?query=$city';
     final locationResponse = await this.httpClient.get(locationUrl);
 
