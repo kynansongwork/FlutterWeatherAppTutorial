@@ -1,4 +1,3 @@
-import 'package:flutter_weather/blocs/weather_state.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 
