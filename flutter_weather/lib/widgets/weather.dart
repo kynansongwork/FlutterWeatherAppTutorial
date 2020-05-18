@@ -31,6 +31,7 @@ class Weather extends StatelessWidget {
       ),
       body: Center(
         child: BlocBuilder<WeatherBloc, WeatherState>(
+          //Rebuilds the UI based on the state changes to weather bloc
           builder: (context, state) {
 
             if (state is WeatherEmpty) {
