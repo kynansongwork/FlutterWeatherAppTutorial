@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_weather/delegates/simple_bloc_delegate.dart';
-import 'package:flutter_weather/models/weather.dart';
 import 'package:flutter_weather/repositories/repositories.dart';
 import 'package:flutter_weather/blocs/blocs.dart';
+import 'package:flutter_weather/widgets/widgets.dart';
 import 'package:http/http.dart'as http;
 
 void main() {
@@ -35,7 +35,7 @@ class App extends StatelessWidget {
         create: (context) => 
           WeatherBloc(weatherRepository: weatherRepository),
         child: Weather(),
-        ),
+      ),
     );
   }
 }

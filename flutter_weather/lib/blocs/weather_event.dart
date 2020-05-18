@@ -1,4 +1,3 @@
-import 'package:flutter_weather/models/weather.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
@@ -18,4 +17,13 @@ class FetchWeather extends WeatherEvent {
 
   // When a user inputs city, a Fetch weather event will be added 
   // and the bloc will return a WeatherState.
+}
+
+class RefreshWeather extends WeatherEvent {
+  final String city;
+
+  const RefreshWeather({@required this.city}) : assert(city != null);
+
+  @override
+  List<Object> get props => [city];
 }
