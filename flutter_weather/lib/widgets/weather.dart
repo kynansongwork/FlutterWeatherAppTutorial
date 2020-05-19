@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_weather/repositories/repositories.dart';
 import 'package:flutter_weather/widgets/widgets.dart';
 import 'package:flutter_weather/blocs/blocs.dart';
 
 class Weather extends StatefulWidget {
+  @override
   State<Weather> createState() => _WeatherState();
 }
 
@@ -47,6 +48,10 @@ class _WeatherState extends State<Weather> {
           // consumer handles rebuilding and performing side effects
           listener: (context, state) {
             if (state is WeatherLoaded) {
+
+              BlocProvider.of<ThemeBloc>(context).add(
+                WeatherChanged(condition: state.weather.condition),
+              );
               _refreshCompleter?.complete();
               _refreshCompleter = Completer();
             }
@@ -61,37 +66,43 @@ class _WeatherState extends State<Weather> {
             } else if (state is WeatherLoaded) {
               final weather = state.weather;
 
-              return RefreshIndicator(
-                onRefresh: () {
-                  BlocProvider.of<WeatherBloc>(context).add(
-                    RefreshWeather(city: state.weather.location),
-                  );
-                  return _refreshCompleter.future;
-                },
-              
-                child: ListView(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 100.0),
-                      child: Center(
-                        child: Location(location: weather.location),
-                      ),
-                    ),
-                    Center(
-                      child: LastUpdated(dateTime: weather.lastUpdated),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 50.0),
-                      child: Center(
-                        child: CombinedWeatherTemperature(
-                          weather: weather,
+              return BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, themeState) {
+                  return GradientContainer(
+                    colour: themeState.color,
+                    child: RefreshIndicator(
+                      onRefresh: () {
+                       BlocProvider.of<WeatherBloc>(context).add(
+                        RefreshWeather(city: state.weather.location),
+                      );
+                    return _refreshCompleter.future;
+                  },
+                  child: ListView(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 100.0),
+                        child: Center(
+                          child: Location(location: weather.location),
                         ),
                       ),
-                    ),
-                  ],
+                      Center(
+                        child: LastUpdated(dateTime: weather.lastUpdated),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 50.0),
+                        child: Center(
+                          child: CombinedWeatherTemperature(
+                            weather: weather,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
-            } else if (state is WeatherError) {
+            },
+          ); 
+        } else if (state is WeatherError) {
               return Text(
                 'Something went wrong!',
                 style: TextStyle(color: Colors.red),
