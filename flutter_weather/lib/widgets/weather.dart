@@ -6,6 +6,7 @@ import 'package:flutter_weather/widgets/widgets.dart';
 import 'package:flutter_weather/blocs/blocs.dart';
 
 class Weather extends StatefulWidget {
+  // Needs to be a stateful widge as an instance of completer needs to be maintained.
   @override
   State<Weather> createState() => _WeatherState();
 }
