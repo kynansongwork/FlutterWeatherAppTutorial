@@ -6,3 +6,4 @@ export 'package:flutter_weather/widgets/weather_conditions.dart';
 export 'package:flutter_weather/widgets/temperature.dart';
 export 'package:flutter_weather/widgets/city_selection.dart';
 export 'package:flutter_weather/widgets/gradient_container.dart';
+export 'package:flutter_weather/widgets/settings.dart';

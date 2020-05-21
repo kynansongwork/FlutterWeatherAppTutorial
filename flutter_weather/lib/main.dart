@@ -16,10 +16,18 @@ void main() {
       )
     );
   runApp(
-    BlocProvider<ThemeBloc>(
-      create: (context) => ThemeBloc(),
+    MultiBlocProvider(
+      // Used to expose more than one bloc and saves nesting them.
+      providers: [
+        BlocProvider<ThemeBloc>(
+          create: (context) => ThemeBloc(),
+        ),
+        BlocProvider<SettingsBloc>(
+          create: (context) => SettingsBloc(),
+        ),
+      ],
       child: App(weatherRepository: weatherRepository),
-    )
+    ),
   );
 }
 

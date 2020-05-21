@@ -29,6 +29,7 @@ class GradientContainer extends StatelessWidget {
         ),
       ),
       child: child,
+      // Will show child view, in this case the combined_weather_temperature
     );
   }
 }
